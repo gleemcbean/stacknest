@@ -1,0 +1,40 @@
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .project {
+    width: 100%;
+    padding: 1rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .techs {
+      display: flex;
+      gap: 0.75rem;
+
+      .tech {
+        list-style: none;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+
+        .techIcon {
+          object-fit: contain;
+          width: 1.25rem;
+          height: 1.25rem;
+        }
+
+        .techName {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .date {
+      font-size: 0.8rem;
+    }
+  }
+}
