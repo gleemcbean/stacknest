@@ -1,0 +1,50 @@
+export default Object.freeze([
+	{
+		id: "nextjs",
+		name: "Next.js",
+		documentationURL: "https://nextjs.org/docs",
+		includePaths: [
+			"next.config.js",
+			'package.json:"next"\\s*:\\s*"(?:\\^|~)[^"]+"',
+		],
+		blacklistedFilenames: [],
+		weight: 4,
+	},
+	{
+		id: "reactjs",
+		name: "React",
+		documentationURL: "https://reactjs.org/docs/getting-started.html",
+		includePaths: ['package.json:"react"\\s*:\\s*"(?:\\^|~)[^"]+"'],
+		blacklistedFilenames: [],
+		weight: 3,
+	},
+	{
+		id: "javascript",
+		name: "JavaScript",
+		documentationURL: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+		includePaths: ["*.js"],
+		blacklistedFilenames: ["node_modules"],
+		weight: 0,
+	},
+	{
+		id: "typescript",
+		name: "TypeScript",
+		documentationURL: "https://www.typescriptlang.org/docs/",
+		includePaths: ["*.ts", "tsconfig.json"],
+		blacklistedFilenames: ["node_modules", "tsconfig.json"],
+		weight: 1,
+	},
+	{
+		id: "vite",
+		name: "Vite",
+		documentationURL: "https://vite.dev/guide/",
+		includePaths: [
+			"vite.*config.ts",
+			"vite.*config.js",
+			".vite",
+			'package.json:"vite"\\s*:\\s*"(?:\\^|~)[^"]+"',
+		],
+		blacklistedFilenames: [".vite"],
+		weight: 2,
+	},
+]) as readonly Technology[];

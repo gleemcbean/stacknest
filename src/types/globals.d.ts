@@ -1,30 +1,18 @@
-declare module "*.scss" {
-	const content: { [className: string]: string };
-	export default content;
-}
-
-declare module "*.module.scss" {
-	const content: { [className: string]: string };
-	export default content;
-}
+import type { GitStatus } from "../constants/Global";
 
 declare global {
 	interface Technology {
 		id: string;
 		name: string;
 		documentationURL: string | null;
-		includeFiles: string[];
+		includePaths: string[];
+		blacklistedFilenames: string[];
+		weight: number;
 	}
 
-	enum GitStatus {
-		Unavailable,
-		Commited,
-		Uncommited,
-	}
-
-	interface Project {
-		description: string;
+	interface Program {
 		path: string;
+		dirname: string;
 		technologies: Technology[];
 		lastEdited: string;
 		gitStatus: GitStatus;
@@ -32,7 +20,8 @@ declare global {
 
 	interface Window {
 		electronAPI: {
-			projects: () => Project[];
+			projects: () => Program[];
+			revealProject: (programName: string) => void;
 		};
 	}
 }

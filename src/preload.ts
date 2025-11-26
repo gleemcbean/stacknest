@@ -1,65 +1,27 @@
+import fs from "node:fs";
 import path from "node:path";
-import { contextBridge } from "electron";
-import moment from "moment";
-
-console.log("Preload script loaded");
-
-const PROJECTS_PATH = path.join(
-	process.env.HOME || process.env.USERPROFILE || "~/",
-	"projects",
-);
-
-type Technology = {
-	id: string;
-	name: string;
-	documentationURL: string | null;
-	includeFiles: string[];
-};
-
-enum GitStatus {
-	Unavailable,
-	Commited,
-	Uncommited,
-}
-
-type Project = {
-	dirname: string;
-	description: string;
-	path: string;
-	technologies: Technology[];
-	lastEdited: string;
-	gitStatus: GitStatus;
-};
-
-const TECHNOLOGIES: Technology[] = [
-	{
-		name: "Next.js",
-		id: "nextjs",
-		documentationURL: "https://nextjs.org/docs",
-		includeFiles: ["next.config.js", 'package.json:"next"'],
-	},
-	{
-		name: "React",
-		id: "reactjs",
-		documentationURL: "https://reactjs.org/docs/getting-started.html",
-		includeFiles: ['package.json:"react"'],
-	},
-];
+import { contextBridge, shell } from "electron";
+import getProgram from "./backend/utils/getProgram";
+import { PROGRAMS_PATH } from "./constants/Global";
 
 contextBridge.exposeInMainWorld("electronAPI", {
-	projects: () =>
-		[
-			{
-				path: path.join(PROJECTS_PATH, "nextjs-app"),
-				technologies: [TECHNOLOGIES[0], TECHNOLOGIES[1]],
-				lastEdited: moment().toISOString(),
-				gitStatus: GitStatus.Commited,
-			},
-			{
-				path: path.join(PROJECTS_PATH, "react-app"),
-				technologies: [TECHNOLOGIES[1]],
-				lastEdited: moment().toISOString(),
-				gitStatus: GitStatus.Unavailable,
-			},
-		] as Project[],
+	projects: () => fs.readdirSync(PROGRAMS_PATH).map(getProgram),
+	revealProject: (projectName: string) => {
+		const projectPath = path.resolve(PROGRAMS_PATH, projectName);
+
+		if (/\.{2}|[/\\]/.test(projectPath)) {
+			console.warn("Invalid project name.");
+			return;
+		}
+
+		if (
+			!fs.existsSync(projectPath) ||
+			!fs.lstatSync(projectPath).isDirectory()
+		) {
+			console.warn("Project folder does not exist.");
+			return;
+		}
+
+		shell.showItemInFolder(projectPath);
+	},
 });
