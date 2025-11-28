@@ -1,3 +1,4 @@
+import type { TitleBarAction } from "src/constants/Enum";
 import type { GitStatus, OpenProjectMode } from "../constants/Global";
 
 declare global {
@@ -23,6 +24,7 @@ declare global {
 		electronAPI: {
 			getProjects: () => Promise<Program[]>;
 			openProject: (programName: string, mode: OpenProjectMode) => void;
+			titleBarAction: (action: TitleBarAction) => Promise<boolean>;
 		};
 	}
 }

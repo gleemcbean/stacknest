@@ -126,7 +126,7 @@ export default Object.freeze(
 			includePaths: ["*.java"],
 			blacklistedFilenames: [],
 			ignoreTechs: [],
-			weight: 0,
+			weight: 1,
 		},
 	].toSorted((a, b) => a.weight - b.weight),
 ) as readonly Technology[];

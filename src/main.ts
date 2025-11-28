@@ -1,6 +1,7 @@
 import path from "node:path";
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain, ipcRenderer } from "electron";
 import started from "electron-squirrel-startup";
+import { TitleBarAction } from "./constants/Enum";
 
 if (started) {
 	app.quit();
@@ -10,6 +11,7 @@ const createWindow = () => {
 	const mainWindow = new BrowserWindow({
 		width: 1080,
 		height: 720,
+		titleBarStyle: "hidden",
 		autoHideMenuBar: true,
 		webPreferences: {
 			contextIsolation: true,
@@ -27,6 +29,28 @@ const createWindow = () => {
 			path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
 		);
 	}
+
+	ipcMain.handle("title-bar-action", (_e, action) => {
+		let maximized = mainWindow.isMaximized();
+
+		switch (action) {
+			case TitleBarAction.CLOSE_WINDOW:
+				mainWindow.close();
+				break;
+
+			case TitleBarAction.MAXIMIZE_WINDOW:
+				if (maximized) mainWindow.unmaximize();
+				else mainWindow.maximize();
+				maximized = !maximized;
+				break;
+
+			case TitleBarAction.MINIMIZE_WINDOW:
+				mainWindow.minimize();
+				break;
+		}
+
+		return maximized;
+	});
 };
 
 app.on("ready", createWindow);

@@ -1,15 +1,15 @@
 export enum GitStatus {
 	CLEAN = "CLEAN",
 	MODIFIED = "MODIFIED",
-	STAGED = "STAGED",
-	UNTRACKED = "UNTRACKED",
-	MERGING = "MERGING",
-	REBASING = "REBASING",
-	DETACHED = "DETACHED",
-	UNKNOWN = "UNKNOWN",
 }
 
 export enum OpenProjectMode {
 	FILE_EXPLORER,
 	IDE,
+}
+
+export enum TitleBarAction {
+	CLOSE_WINDOW,
+	MINIMIZE_WINDOW,
+	MAXIMIZE_WINDOW,
 }
