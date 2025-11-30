@@ -1,5 +1,6 @@
 import moment from "moment";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
 import { FaGitAlt, FaRegFolderOpen, FaThList } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import { IoGrid } from "react-icons/io5";
@@ -111,6 +112,12 @@ export default function Home() {
 			<TitleBar />
 			<Modal ref={modalRef}>
 				<h2 className={styles.modalTitle}>Create a project</h2>
+				<div className={styles.templates}>
+					<button type="button" className={styles.templateButton}>
+						<AiOutlinePlus className={styles.icon} />
+						<p className={styles.projectName}>Projet vide</p>
+					</button>
+				</div>
 			</Modal>
 			<main className={styles.container}>
 				<div className={styles.toolbar}>
