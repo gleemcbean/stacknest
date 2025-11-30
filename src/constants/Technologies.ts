@@ -133,6 +133,7 @@ export default Object.freeze(
 			name: "Three.js",
 			documentationURL: "https://threejs.org/docs/",
 			includePaths: ['package.json:"three"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
+			blacklistedFilenames: [],
 			ignoreTechs: [],
 			weight: -1,
 		},
