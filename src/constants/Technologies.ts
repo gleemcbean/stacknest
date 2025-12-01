@@ -51,7 +51,7 @@ export default Object.freeze(
 			includePaths: ["node_modules", "package.json", "package-lock.json"],
 			blacklistedFilenames: ["node_modules"],
 			ignoreTechs: ["javascript"],
-			weight: 1,
+			weight: 0,
 		},
 		{
 			id: "typescript",
@@ -79,18 +79,6 @@ export default Object.freeze(
 			blacklistedFilenames: [],
 			ignoreTechs: ["reactjs"],
 			weight: 4,
-		},
-		{
-			id: "expo",
-			name: "Expo",
-			documentationURL: "https://docs.expo.dev/",
-			includePaths: [
-				".expo",
-				'package.json:"expo"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
-			],
-			blacklistedFilenames: [],
-			ignoreTechs: ["reactnative"],
-			weight: 5,
 		},
 		{
 			id: "python",
@@ -455,13 +443,22 @@ export default Object.freeze(
 			weight: 1,
 		},
 		{
+			id: "docker",
+			name: "Docker",
+			documentationURL: "https://docs.docker.com/",
+			includePaths: ["dockerfile", "Dockerfile", "docker-compose.yml"],
+			blacklistedFilenames: ["dockerfile", "docker-compose.yml"],
+			ignoreTechs: [],
+			weight: -2,
+		},
+		{
 			id: "kubernetes",
 			name: "Kubernetes",
 			documentationURL: "https://kubernetes.io/docs/home/",
 			includePaths: ["kubeconfig", "*.k8s.yaml", "*.k8s.yml"],
 			blacklistedFilenames: [],
-			ignoreTechs: [],
-			weight: 1,
+			ignoreTechs: ["docker"],
+			weight: -1,
 		},
 		{
 			id: "knexjs",
@@ -487,7 +484,7 @@ export default Object.freeze(
 			documentationURL: "https://kotlinlang.org/docs/home.html",
 			includePaths: ["*.kt", "*.kts"],
 			blacklistedFilenames: [],
-			ignoreTechs: [],
+			ignoreTechs: ["java"],
 			weight: 1,
 		},
 		{
@@ -496,7 +493,7 @@ export default Object.freeze(
 			documentationURL: "https://developer.android.com/docs",
 			includePaths: ["AndroidManifest.xml"],
 			blacklistedFilenames: ["AndroidManifest.xml"],
-			ignoreTechs: ["java", "kotlin"],
+			ignoreTechs: [],
 			weight: 2,
 		},
 		{
@@ -514,7 +511,7 @@ export default Object.freeze(
 			documentationURL: "https://www.w3schools.com/cpp/",
 			includePaths: ["*.cpp", "*.cc", "*.c++", "*.C", "*.hpp"],
 			blacklistedFilenames: [],
-			ignoreTechs: [],
+			ignoreTechs: ["c"],
 			weight: 1,
 		},
 		{
@@ -562,6 +559,88 @@ export default Object.freeze(
 			ignoreTechs: ["javascript"],
 			weight: 2,
 		},
+		{
+			id: "gulpjs",
+			name: "Gulp.js",
+			documentationURL: "https://gulpjs.com/docs/en/",
+			includePaths: ['package.json:"gulp"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
+			blacklistedFilenames: [],
+			ignoreTechs: ["javascript"],
+			weight: 2,
+		},
+		{
+			id: "objectivec",
+			name: "Objective-C",
+			documentationURL:
+				"https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210-CH1-SW1",
+			includePaths: ["*.m", "*.mm"],
+			blacklistedFilenames: [],
+			ignoreTechs: ["c"],
+			weight: 2,
+		},
+		{
+			id: "purescript",
+			name: "PureScript",
+			documentationURL:
+				"https://github.com/purescript/documentation/blob/master/README.md",
+			includePaths: [
+				"*.purs",
+				"packages.dhall",
+				"spago.dhall",
+				"src/Main.purs",
+				"test/Main.purs",
+				'package.json:"purescript"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
+				'package.json:"spago"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
+			],
+			blacklistedFilenames: [],
+			ignoreTechs: [],
+			weight: 2,
+		},
+
+		// wraper
+
+		{
+			id: "expo",
+			name: "Expo",
+			documentationURL: "https://docs.expo.dev/",
+			includePaths: [
+				".expo",
+				'package.json:"expo"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
+			],
+			blacklistedFilenames: [],
+			ignoreTechs: ["reactnative"],
+			weight: 5,
+		},
+		{
+			id: "electron",
+			name: "Electron",
+			documentationURL: "https://www.electronjs.org/docs/",
+			includePaths: ['package.json:"electron"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
+			blacklistedFilenames: [],
+			ignoreTechs: [],
+			weight: 5,
+		},
+
+		// CSS framework
+		{
+			id: "Tailwind",
+			name: "tailwind",
+			documentationURL: "https://tailwindcss.com/docs/",
+			includePaths: ['package.json:"tailwindcss"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
+			blacklistedFilenames: [],
+			ignoreTechs: ["css"],
+			weight: 2,
+		},
+		{
+			id: "bootstrap",
+			name: "Bootstrap",
+			documentationURL: "https://getbootstrap.com/docs/",
+			includePaths: ['package.json:"bootstrap"\\s*:\\s*"(?:\\^|~)?[0-9.]+"'],
+			blacklistedFilenames: [],
+			ignoreTechs: ["css"],
+			weight: 2,
+		},
+
 		// secondary technologies
 
 		// CI/CD
@@ -669,7 +748,7 @@ export default Object.freeze(
 			includePaths: ["pnpm-lock.yaml"],
 			blacklistedFilenames: [],
 			ignoreTechs: [],
-			weight: 1,
+			weight: -1,
 		},
 		{
 			id: "yarn",
@@ -678,16 +757,7 @@ export default Object.freeze(
 			includePaths: ["yarn.lock"],
 			blacklistedFilenames: [],
 			ignoreTechs: [],
-			weight: 1,
-		},
-		{
-			id: "npm",
-			name: "npm",
-			documentationURL: "https://docs.npmjs.com/",
-			includePaths: ["package-lock.json"],
-			blacklistedFilenames: ["package-lock.json"],
-			ignoreTechs: [],
-			weight: 1,
+			weight: -1,
 		},
 	].toSorted((a, b) => a.weight - b.weight),
 ) as readonly Technology[];
