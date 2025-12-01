@@ -544,6 +544,15 @@ export default Object.freeze(
 			ignoreTechs: ["javascript"],
 			weight: 2,
 		},
+		{
+			id: "arduino",
+			name: "Arduino",
+			documentationURL: "https://www.arduino.cc/en/Reference/HomePage",
+			includePaths: ["*.ino", "*.pde"],
+			blacklistedFilenames: [],
+			ignoreTechs: [],
+			weight: 1,
+		},
 		// secondary technologies
 
 		// CI/CD
