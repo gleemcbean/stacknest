@@ -169,6 +169,18 @@ export default Object.freeze(
 			weight: 2,
 		},
 		{
+			id: "less",
+			name: "Less.js",
+			documentationURL: "https://lesscss.org/",
+			includePaths: [
+				"*.less",
+				'package.json:"less"\\s*:\\s*"(?:\\^|~)?[0-9.]+"',
+			],
+			blacklistedFilenames: [],
+			ignoreTechs: ["css"],
+			weight: 2,
+		},
+		{
 			id: "php",
 			name: "PHP",
 			documentationURL: "https://www.php.net/docs.php",
